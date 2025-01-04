@@ -16,7 +16,7 @@ const dispatch = useAppDispatch();
 
   return (
     <>
-      <button onClick={()=>handelIncrement(5)}>increment + 1</button>
+      <button onClick={()=>handelIncrement(1)}>increment + 1</button>
       <button onClick={()=>handelIncrement(5)}>increment + 5</button>
       <h1>{count}</h1>
       <button onClick={handleDecrement}>decrement - 1</button>
