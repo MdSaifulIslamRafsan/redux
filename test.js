@@ -39,3 +39,21 @@ const employee3 =  produce(employee, draft => {
     draft.name = "Employ"
 })
 console.log(employee3);
+
+// Function Currying
+const add = (a) => {
+    return (b) => {
+        return a + b;
+    }
+}
+
+console.log(add(2)(5));
+
+const totalPrice = (discount) => {
+    return (price) => {
+        return price - (price * discount);
+    }
+}
+
+const withDiscount = totalPrice(0.3);
+console.log(withDiscount(300))
