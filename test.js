@@ -22,7 +22,7 @@ const updateDate = () => {
 };
 
 // mutation
-
+import {produce} from "immer"
 const employee = {
   name: "John Doe",
   age: 30,
@@ -34,3 +34,8 @@ const employee2 = { ...employee, name: "Md Saiful Islam" , address : {...employe
 
 console.log(employee);
 console.log(employee2);
+
+const employee3 =  produce(employee, draft => {
+    draft.name = "Employ"
+})
+console.log(employee3);
