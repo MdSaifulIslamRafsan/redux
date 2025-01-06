@@ -16,6 +16,14 @@ const initialState : IInitialState = {
       isCompleted: false,
       priority: "High",
     },
+    {
+      id: "asddfas2",
+      title: "Init github repositories",
+      description: "create home page, and routing",
+      dueDate: "2025-11",
+      isCompleted: false,
+      priority: "Low",
+    },
   ],
   filter : "All"
 };

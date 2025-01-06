@@ -1,14 +1,17 @@
+import TaskCard from "@/module/task/TaskCard";
 import { useAppSelector } from "@/redux/features/counter/hooks";
-import { filterTask, selectTask } from "@/redux/features/task/taskSlice";
+import {  selectTask } from "@/redux/features/task/taskSlice";
 
 const Tasks = () => {
-const tasks = useAppSelector(selectTask)
-const filter = useAppSelector(filterTask)
-console.log(tasks)
-console.log(filter)
+const tasks = useAppSelector(selectTask);
     return (
-        <div>
-            <h1>this is task page</h1>
+        <div className="max-w-7xl mx-auto px-5">
+            <h1>Tasks</h1>
+            <div className="space-y-5 my-5">
+                {
+                    tasks?.map(task => <TaskCard key={task?.id} task={task}></TaskCard>)
+                }
+            </div>
         </div>
     );
 };
