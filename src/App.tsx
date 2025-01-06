@@ -1,3 +1,5 @@
+import { Outlet } from "react-router";
+import Navbar from "./components/layout/Navbar";
 import { Button } from "./components/ui/button";
 import { decrement, increment } from "./redux/features/counter/counterSlice";
 import { useAppDispatch, useAppSelector } from "./redux/features/counter/hooks";
@@ -17,6 +19,9 @@ const dispatch = useAppDispatch();
 
   return (
     <>
+    <Navbar></Navbar>
+    <Outlet></Outlet>
+    
       <Button className="mr-4" onClick={()=>handelIncrement(1)}>increment + 1</Button>
       <Button onClick={()=>handelIncrement(5)}>increment + 5</Button>
       <h1>{count}</h1>
