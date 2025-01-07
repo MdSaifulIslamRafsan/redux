@@ -20,7 +20,7 @@ const TaskCard = ({ task }: { task: ITask }) => {
           <p>{description}</p>
         </div>
         <div className="flex gap-3 items-center">
-          <Button variant="outline">Button</Button>
+          <Button>Button</Button>
           <input type="checkbox" name="" id="" />
         </div>
       </div>
