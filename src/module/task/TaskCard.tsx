@@ -1,10 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAppDispatch } from "@/redux/features/counter/hooks";
+import { ToggleCompleteState } from "@/redux/features/task/taskSlice";
 import { ITask } from "@/types";
 
 const TaskCard = ({ task }: { task: ITask }) => {
-  const { description, title, priority } = task;
-  console.log(task);
+  const { description, title, priority , isCompleted} = task;
+  const dispatch = useAppDispatch();
+  console.log({isCompleted});
+
+  const handleCompleteToggle = () => {
+    dispatch(ToggleCompleteState(task?.id))
+  };
+
+
   return (
     <div className="border px-5 py-3 rounded-md">
       <div className="flex justify-between items-center">
@@ -18,10 +27,18 @@ const TaskCard = ({ task }: { task: ITask }) => {
             <h1 className="">{title}</h1>
           </div>
           <p>{description}</p>
+        <div className={cn("task-status" , {
+          "text-green-700": isCompleted,
+          "text-gray-500": !isCompleted,
+        })}>
+          isCompleted :{
+            isCompleted ? "yes" : "no"
+          }
+        </div>
         </div>
         <div className="flex gap-3 items-center">
-          <Button>Button</Button>
-          <input type="checkbox" name="" id="" />
+          <Button className="bg-red-600 hover:bg-red-700">Delete</Button>
+          <input onClick={handleCompleteToggle} type="checkbox" name="" id="" />
         </div>
       </div>
     </div>

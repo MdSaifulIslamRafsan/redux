@@ -7,6 +7,15 @@ interface IInitialState{
     filter : "All" | "High" | "Medium" | "Low" ;
 }
 
+type TDraftTask = Pick<ITask , "title" | "description" | "dueDate" | "priority">
+
+const createTask = (task : TDraftTask) : ITask => {
+   // const id = "100" + (state.tasks.length + 1);
+  const id = uuidv4();
+  const isCompleted = false;
+  return {id , isCompleted , ...task}
+}
+
 const initialState : IInitialState = {
   tasks: [
   
@@ -19,10 +28,15 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state , action : PayloadAction<ITask>) => {
-      // const id = "100" + (state.tasks.length + 1);
-      const id = uuidv4();
-      const isCompleted = false;
-        state.tasks.push({...action.payload , id, isCompleted});
+     const taskData = createTask(action.payload);
+        state.tasks.push(taskData);
+    },
+    ToggleCompleteState : (state , action : PayloadAction<string>) => {
+      state.tasks.forEach(task => {
+        if(task.id === action.payload){
+          task.isCompleted = !task.isCompleted
+        }
+      })
     }
   },
 
@@ -35,6 +49,6 @@ export const filterTask = (state : RootState) => {
     return state.todo.filter;
 }
 
-export const {addTask} = taskSlice.actions;
+export const {addTask, ToggleCompleteState} = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -40,7 +40,6 @@ export function AddTaskModal() {
 
   const handleAddTask : SubmitHandler<FieldValues> = (data) => {
     dispatch(addTask(data as ITask));
-
   };
 
   return (
