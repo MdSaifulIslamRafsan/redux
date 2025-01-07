@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useAppDispatch } from "@/redux/features/counter/hooks";
 import { DeletedTask, ToggleCompleteState } from "@/redux/features/task/taskSlice";
 import { ITask } from "@/types";
+import { EditTaskModal } from "./EditTaskModal";
 
 const TaskCard = ({ task }: { task: ITask }) => {
   const { description, title, priority , isCompleted} = task;
@@ -28,10 +29,14 @@ const TaskCard = ({ task }: { task: ITask }) => {
               "bg-yellow-500" : priority === "Medium",
               "bg-red-500" : priority === "Low",
             })}></div>
-            <h1 className="">{title}</h1>
+            <h1 className={cn({
+              "line-through" : isCompleted
+            })}>{title}</h1>
           </div>
-          <p>{description}</p>
-        <div className={cn("task-status" , {
+          <p className={cn({
+            "line-through" : isCompleted
+          })}>{description}</p>
+        <div className={cn({
           "text-green-700": isCompleted,
           "text-gray-500": !isCompleted,
         })}>
@@ -41,6 +46,7 @@ const TaskCard = ({ task }: { task: ITask }) => {
         </div>
         </div>
         <div className="flex gap-3 items-center">
+          {task && <EditTaskModal task={task}></EditTaskModal>}
           <Button onClick={handleDeletedTask} className="bg-red-600 hover:bg-red-700">Delete</Button>
           <input checked={isCompleted} onClick={handleCompleteToggle} type="checkbox" name="" id="" />
         </div>
