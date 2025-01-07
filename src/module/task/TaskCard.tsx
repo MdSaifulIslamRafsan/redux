@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAppDispatch } from "@/redux/features/counter/hooks";
-import { ToggleCompleteState } from "@/redux/features/task/taskSlice";
+import { DeletedTask, ToggleCompleteState } from "@/redux/features/task/taskSlice";
 import { ITask } from "@/types";
 
 const TaskCard = ({ task }: { task: ITask }) => {
@@ -12,6 +12,10 @@ const TaskCard = ({ task }: { task: ITask }) => {
   const handleCompleteToggle = () => {
     dispatch(ToggleCompleteState(task?.id))
   };
+
+  const handleDeletedTask  = () => {
+   dispatch(DeletedTask(task?.id))
+  }
 
 
   return (
@@ -37,8 +41,8 @@ const TaskCard = ({ task }: { task: ITask }) => {
         </div>
         </div>
         <div className="flex gap-3 items-center">
-          <Button className="bg-red-600 hover:bg-red-700">Delete</Button>
-          <input onClick={handleCompleteToggle} type="checkbox" name="" id="" />
+          <Button onClick={handleDeletedTask} className="bg-red-600 hover:bg-red-700">Delete</Button>
+          <input checked={isCompleted} onClick={handleCompleteToggle} type="checkbox" name="" id="" />
         </div>
       </div>
     </div>

@@ -37,7 +37,14 @@ const taskSlice = createSlice({
           task.isCompleted = !task.isCompleted
         }
       })
+    },
+
+    DeletedTask : (state , action : PayloadAction<string>) =>{
+      state.tasks = state.tasks.filter(task => task.id !== action.payload)
     }
+
+
+
   },
 
 });
@@ -49,6 +56,6 @@ export const filterTask = (state : RootState) => {
     return state.todo.filter;
 }
 
-export const {addTask, ToggleCompleteState} = taskSlice.actions;
+export const {addTask, ToggleCompleteState , DeletedTask} = taskSlice.actions;
 
 export default taskSlice.reducer;
