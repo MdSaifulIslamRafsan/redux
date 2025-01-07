@@ -5,6 +5,7 @@ import {  selectTask } from "@/redux/features/task/taskSlice";
 
 const Tasks = () => {
 const tasks = useAppSelector(selectTask);
+console.log(tasks);
     return (
         <div className="max-w-7xl mx-auto px-5">
            <div className="flex justify-between items-center">
