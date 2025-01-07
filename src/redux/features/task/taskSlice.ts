@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store";
-import {  ITask } from "@/types";
+import { ITask } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 interface IInitialState {
@@ -59,12 +59,16 @@ const taskSlice = createSlice({
         }
           
         }); */
-        // const { id, ...updates } = action.payload;
-       /*  state.tasks = state.tasks.map((task) =>
-          task.id === action.payload?.id ? action.payload : task
-        ); */
-
-        console.log(action.payload)
+      // const { id, ...updates } = action.payload;
+      state.tasks = state.tasks.map((task) =>
+        task.id === action.payload?.id ? action.payload : task
+      );
+    },
+    updateFilter: (
+      state,
+      action: PayloadAction<"High" | "Medium" | "Low" | "All">
+    ) => {
+      state.filter = action.payload;
     },
   },
 });
@@ -73,10 +77,24 @@ export const selectTask = (state: RootState) => {
   return state.todo.tasks;
 };
 export const filterTask = (state: RootState) => {
-  return state.todo.filter;
+  const filter = state.todo.filter;
+  if (filter === "High") {
+    return state.todo.tasks?.filter(task => task.priority === "High");
+  } else if (filter === "Medium") {
+    return state.todo.tasks?.filter(task => task.priority === "Medium");
+  } else if (filter === "Low") {
+    return state.todo.tasks?.filter(task => task.priority === "Low");
+  } else {
+    return state.todo.tasks;
+  }
 };
 
-export const { addTask, ToggleCompleteState, DeletedTask, EditTask } =
-  taskSlice.actions;
+export const {
+  addTask,
+  ToggleCompleteState,
+  DeletedTask,
+  EditTask,
+  updateFilter,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

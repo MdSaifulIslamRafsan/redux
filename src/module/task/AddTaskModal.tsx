@@ -63,7 +63,7 @@ export function AddTaskModal() {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} placeholder="Title" value={field.value || ""} />
                   </FormControl>
                 </FormItem>
               )}
@@ -75,7 +75,7 @@ export function AddTaskModal() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} value={field.value || ""} />
+                    <Textarea placeholder="description" {...field} value={field.value || ""} />
                   </FormControl>
                 </FormItem>
               )}

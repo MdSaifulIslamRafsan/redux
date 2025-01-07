@@ -35,13 +35,17 @@ import { CalendarIcon } from "lucide-react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export function EditTaskModal({task} : {task : ITask}) {
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      title: task?.title,
+      description: task?.description,
+      dueDate: task?.dueDate,
+      priority: task?.priority,
+    },
+  });
   const dispatch = useAppDispatch();
-  console.log(task)
   const handelEditTask : SubmitHandler<FieldValues> = (data) => {
     const taskData = {...task, ...data}
-  
-    console.log(taskData)
     dispatch(EditTask(taskData))
   }
 
@@ -52,7 +56,7 @@ export function EditTaskModal({task} : {task : ITask}) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] ">
         <DialogHeader>
-          <DialogTitle>Add Task</DialogTitle>
+          <DialogTitle>Edit Task</DialogTitle>
           <DialogDescription className="sr-only">
             Fill up this form to add task
           </DialogDescription>
@@ -69,7 +73,7 @@ export function EditTaskModal({task} : {task : ITask}) {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} defaultValue={task?.title} />
+                    <Input {...field} placeholder="Title" />
                   </FormControl>
                 </FormItem>
               )}
@@ -81,7 +85,7 @@ export function EditTaskModal({task} : {task : ITask}) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} defaultValue={task?.description} />
+                    <Textarea placeholder="description" {...field}  />
                   </FormControl>
                 </FormItem>
               )}
@@ -94,7 +98,7 @@ export function EditTaskModal({task} : {task : ITask}) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={task?.priority}
+                   
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -138,7 +142,6 @@ export function EditTaskModal({task} : {task : ITask}) {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={task?.dueDate || field.value}
                         onSelect={field.onChange}
                         disabled={(date) =>
                           date < new Date() || date < new Date("1900-01-01")
