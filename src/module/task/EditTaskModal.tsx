@@ -37,8 +37,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 export function EditTaskModal({task} : {task : ITask}) {
   const form = useForm();
   const dispatch = useAppDispatch();
+  console.log(task)
   const handelEditTask : SubmitHandler<FieldValues> = (data) => {
-    const taskData = {...data, id :task?.id}
+    const taskData = {...task, ...data}
+  
+    console.log(taskData)
     dispatch(EditTask(taskData))
   }
 
@@ -91,7 +94,7 @@ export function EditTaskModal({task} : {task : ITask}) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={ task?.priority || field.value}
+                    defaultValue={task?.priority}
                   >
                     <FormControl>
                       <SelectTrigger>

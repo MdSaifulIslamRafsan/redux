@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store";
-import { IEditTask, ITask } from "@/types";
+import {  ITask } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 interface IInitialState {
@@ -40,8 +40,8 @@ const taskSlice = createSlice({
     DeletedTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
-    EditTask: (state, action: PayloadAction<IEditTask>) => {
-      state.tasks.forEach((task) => {
+    EditTask: (state, action: PayloadAction<ITask>) => {
+      /*  state.tasks.forEach((task) => {
         if (task.id === action.payload.id) {
           if (action.payload.description) {
             task.description = action.payload.description;
@@ -57,7 +57,14 @@ const taskSlice = createSlice({
           }
        
         }
-      });
+          
+        }); */
+        // const { id, ...updates } = action.payload;
+       /*  state.tasks = state.tasks.map((task) =>
+          task.id === action.payload?.id ? action.payload : task
+        ); */
+
+        console.log(action.payload)
     },
   },
 });

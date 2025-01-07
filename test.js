@@ -57,3 +57,14 @@ const totalPrice = (discount) => {
 
 const withDiscount = totalPrice(0.3);
 console.log(withDiscount(300))
+
+const tast1 = {
+  name: 'Apple',
+  price: 10,
+  category: 'fruit',
+}, 
+  tast2 = {
+    name: 'Banana',
+  }
+
+  console.log({...tast1, ...tast2})
