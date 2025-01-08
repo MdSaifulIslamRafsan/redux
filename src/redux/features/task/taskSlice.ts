@@ -2,6 +2,7 @@ import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import { DeleteUser } from "../user/userSlice";
 interface IInitialState {
   tasks: ITask[];
   filter: "All" | "High" | "Medium" | "Low";
@@ -13,7 +14,7 @@ const createTask = (task: TDraftTask): ITask => {
   // const id = "100" + (state.tasks.length + 1);
   const id = uuidv4();
   const isCompleted = false;
-  return { id, isCompleted, ...task };
+  return { ...task, id, isCompleted, assignedTo : task.assignedTo ? task.assignedTo : null };
 };
 
 const initialState: IInitialState = {
@@ -70,7 +71,15 @@ const taskSlice = createSlice({
     ) => {
       state.filter = action.payload;
     },
+
   },
+  extraReducers: (builder) => {
+    builder.addCase(DeleteUser , (state, action) => {
+     state.tasks.forEach(task =>{
+        task.assignedTo === action.payload ? task.assignedTo = null : task;
+      })
+    })
+  }
 });
 
 export const selectTask = (state: RootState) => {
