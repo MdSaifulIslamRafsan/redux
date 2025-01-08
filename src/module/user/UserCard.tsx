@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 const UserCard = ({user} : {user : IUser}) => {
     const dispatch = useDispatch();
+   
 
     const handleUserDelete = (id : string) => {
         dispatch(DeleteUser(id))
