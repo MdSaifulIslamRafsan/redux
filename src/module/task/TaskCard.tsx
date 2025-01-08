@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useAppDispatch } from "@/redux/features/counter/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/features/counter/hooks";
 import { DeletedTask, ToggleCompleteState } from "@/redux/features/task/taskSlice";
 import { ITask } from "@/types";
 import { EditTaskModal } from "./EditTaskModal";
+import { selectUser } from "@/redux/features/user/userSlice";
 
 const TaskCard = ({ task }: { task: ITask }) => {
-  const { description, title, priority , isCompleted} = task;
+  const { description, title, priority , isCompleted , assignedTo} = task;
   const dispatch = useAppDispatch();
-  console.log({isCompleted});
+  const users = useAppSelector(selectUser);
+  const assignUser = users?.find(user => user?.id === assignedTo);
 
   const handleCompleteToggle = () => {
     dispatch(ToggleCompleteState(task?.id))
@@ -36,6 +38,9 @@ const TaskCard = ({ task }: { task: ITask }) => {
           <p className={cn({
             "line-through" : isCompleted
           })}>{description}</p>
+          <p className={cn({
+            "line-through" : isCompleted
+          })}>assign to : {assignUser?.name || "No One"}</p>
         <div className={cn({
           "text-green-700": isCompleted,
           "text-gray-500": !isCompleted,

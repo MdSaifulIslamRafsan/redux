@@ -7,7 +7,7 @@ interface IInitialState {
   filter: "All" | "High" | "Medium" | "Low";
 }
 
-type TDraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
+type TDraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority" | "assignedTo">;
 
 const createTask = (task: TDraftTask): ITask => {
   // const id = "100" + (state.tasks.length + 1);

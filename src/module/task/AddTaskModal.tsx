@@ -17,7 +17,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -27,8 +31,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { useAppDispatch } from "@/redux/features/counter/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/features/counter/hooks";
 import { addTask } from "@/redux/features/task/taskSlice";
+import { selectUser } from "@/redux/features/user/userSlice";
+
 import { ITask } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -37,8 +43,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 export function AddTaskModal() {
   const form = useForm();
   const dispatch = useAppDispatch();
+  const users = useAppSelector(selectUser);
 
-  const handleAddTask : SubmitHandler<FieldValues> = (data) => {
+
+
+  const handleAddTask: SubmitHandler<FieldValues> = (data) => {
     dispatch(addTask(data as ITask));
   };
 
@@ -55,15 +64,22 @@ export function AddTaskModal() {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-3" onSubmit={form.handleSubmit(handleAddTask)}>
+          <form
+            className="space-y-3"
+            onSubmit={form.handleSubmit(handleAddTask)}
+          >
             <FormField
               control={form.control}
               name="title"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Title" value={field.value || ""} />
+                    <Input
+                      {...field}
+                      placeholder="Title"
+                      value={field.value || ""}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -71,11 +87,15 @@ export function AddTaskModal() {
             <FormField
               control={form.control}
               name="description"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="description" {...field} value={field.value || ""} />
+                    <Textarea
+                      placeholder="description"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -99,6 +119,32 @@ export function AddTaskModal() {
                       <SelectItem value="Low">Low</SelectItem>
                       <SelectItem value="Medium">Medium</SelectItem>
                       <SelectItem value="High">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="assignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assign To</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a priority to set" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {users.map((user) => (
+                        <SelectItem key={user.id} value={user.id}>
+                          {user.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </FormItem>
