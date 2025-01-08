@@ -7,18 +7,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const AddUserModal = () => {
-    const form = useForm();
+  const form = useForm();
 
-    const handleUser : SubmitHandler<FieldValues> = (data) => {
-            console.log(data);
-    }
-
-
+  const handleUser: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+  };
 
   return (
     <div>
@@ -34,7 +38,10 @@ const AddUserModal = () => {
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleUser)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(handleUser)}
+              className="space-y-8"
+            >
               <FormField
                 control={form.control}
                 name="name"
@@ -42,7 +49,11 @@ const AddUserModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Name" {...field} value={field.value ||""} />
+                      <Input
+                        placeholder="Name"
+                        {...field}
+                        value={field.value || ""}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
