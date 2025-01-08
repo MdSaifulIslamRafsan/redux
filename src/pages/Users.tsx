@@ -14,7 +14,7 @@ const Users = () => {
       <div className="flex justify-end">
             <AddUserModal></AddUserModal>
       </div>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-4 gap-5 mt-5 mb-10">
             {
                 users?.map(user => <UserCard key={user?.id} user={user}></UserCard>)
             }
