@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+/* import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AddTaskModal } from "@/module/task/AddTaskModal";
 import TaskCard from "@/module/task/TaskCard";
 import { useAppDispatch, useAppSelector } from "@/redux/features/counter/hooks";
@@ -18,14 +18,14 @@ const Tasks = () => {
     <div className="max-w-7xl mx-auto px-5">
       <div className="flex justify-between items-center">
         <h1>Tasks</h1>
-       {/*  <Tabs defaultValue="All">
-          <TabsList>
-            <TabsTrigger onClick={()=> dispatch(updateFilter("All"))} value="All">All</TabsTrigger>
-            <TabsTrigger onClick={()=> dispatch(updateFilter("High"))} value="High">High</TabsTrigger>
-            <TabsTrigger onClick={()=> dispatch(updateFilter("Medium"))} value="Medium">Medium</TabsTrigger>
-            <TabsTrigger onClick={()=> dispatch(updateFilter("Low"))} value="Low">Low</TabsTrigger>
-          </TabsList>
-        </Tabs> */}
+    {   // <Tabs defaultValue="All">
+        //   <TabsList>
+        //     <TabsTrigger onClick={()=> dispatch(updateFilter("All"))} value="All">All</TabsTrigger>
+        //     <TabsTrigger onClick={()=> dispatch(updateFilter("High"))} value="High">High</TabsTrigger>
+        //     <TabsTrigger onClick={()=> dispatch(updateFilter("Medium"))} value="Medium">Medium</TabsTrigger>
+        //     <TabsTrigger onClick={()=> dispatch(updateFilter("Low"))} value="Low">Low</TabsTrigger>
+        //   </TabsList>
+        // </Tabs>}
         <Tabs onValueChange={handleTaskFilter} defaultValue="All">
           <TabsList>
             <TabsTrigger value="All">All</TabsTrigger>
@@ -38,6 +38,44 @@ const Tasks = () => {
       </div>
       <div className="space-y-5 my-5">
         {tasks?.map((task) => (
+          <TaskCard key={task?.id} task={task}></TaskCard>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Tasks;
+ */
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AddTaskModal } from "@/module/task/AddTaskModal";
+import TaskCard from "@/module/task/TaskCard";
+import { useGetTasksQuery } from "@/redux/api/taskApi";
+import { ITask } from "@/types";
+
+
+const Tasks = () => {
+const  {data ,  isLoading} = useGetTasksQuery(undefined);
+console.log(data)
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div className="max-w-7xl mx-auto px-5">
+      <div className="flex justify-between items-center">
+        <h1>Tasks</h1>
+        <Tabs  defaultValue="All">
+          <TabsList>
+            <TabsTrigger value="All">All</TabsTrigger>
+            <TabsTrigger value="High">High</TabsTrigger>
+            <TabsTrigger value="Medium">Medium</TabsTrigger>
+            <TabsTrigger value="Low">Low</TabsTrigger>
+          </TabsList>
+        </Tabs>
+        <AddTaskModal></AddTaskModal>
+      </div>
+      <div className="space-y-5 my-5">
+        {data.tasks?.map((task : ITask) => (
           <TaskCard key={task?.id} task={task}></TaskCard>
         ))}
       </div>

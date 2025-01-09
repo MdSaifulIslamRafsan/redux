@@ -9,9 +9,9 @@ export const store = configureStore({
         counter : counterReducer,
         todo : taskReducer,
         user : userReducer,
-        [taskApi.reducerPath] : taskApi.reducer
+        [taskApi.reducerPath]: taskApi.reducer,
     },
-    middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(taskApi.middleware).concat(logger)
+    middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat([taskApi.middleware , logger])
     
 })
 
